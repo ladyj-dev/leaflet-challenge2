@@ -5,7 +5,7 @@ https://ladyj-dev.github.io/leaflet-challenge2/
 
 ## Overview
 
-![earthquake_overview](earthquake_overview.png)
+![immages/earthquake_overview](images/earthquake_overview.png)
 
 Welcome to the United States Geological Survey, or USGS for short! The USGS is responsible for providing scientific data about natural hazards, the health of our ecosystems and environment; and the impacts of climate and land-use change. Their scientists develop new methods and tools to supply timely, relevant, and useful information about the Earth and its processes. As a new hire, you will be helping them out with an exciting new project!
 
@@ -35,7 +35,7 @@ Your first task is to visualize an earthquake data set.
 
    The USGS provides earthquake data in a number of different formats, updated every 5 minutes. Visit the [USGS GeoJSON Feed](http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) page and pick a data set to visualize. When you click on a data set, for example 'All Earthquakes from the Past 7 Days', you will be given a JSON representation of that data. You will be using the URL of this JSON to pull in the data for our visualization.
 
-![aricageomap](aricageomap.png)
+![images/aricageomap](images/aricageomap.png)
    
 2. **Import & Visualize the Data**
 
@@ -63,5 +63,5 @@ Your final product will be assessed on the following metrics:
 
 * Ensure your repository has regular commits (i.e. 20+ commits) and a thorough README.md file
 
-![paris_calling](paris_calling.png)
+![images/paris_calling](images/paris_calling.png)
 
