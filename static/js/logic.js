@@ -12,20 +12,18 @@ var streetmap = L.tileLayer(
   }
 );
 
-
 var satellite = L.tileLayer(
-    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-    {
-      attribution:
-        "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-      tileSize: 512,
-      maxZoom: 18,
-      zoomOffset: -1,
-      id: "mapbox/satellite-v9",
-      accessToken: API_KEY,
-    }
-  );
-
+  "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+  {
+    attribution:
+      "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    tileSize: 512,
+    maxZoom: 18,
+    zoomOffset: -1,
+    id: "mapbox/satellite-v9",
+    accessToken: API_KEY,
+  }
+);
 
 var darkmap = L.tileLayer(
   "https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -138,4 +136,38 @@ d3.json(earthquakeUrl, function (data) {
     // add to layer created for earthquakes not to myMap
   }).addTo(earthquakes);
   earthquakes.addTo(myMap);
+
+  // create a legend (object)
+  var legend = L.control({
+    position: "bottomright",
+  });
+
+  // add details to the legend
+  legend.onAdd = function () {
+    var div = L.DomUtil.create("div", "info legend"),
+      grades = [0, 10, 30, 50, 70, 90];
+    // var colors = [
+    //     "#4d9221",
+    //     "#a1d76a",
+    //     "#e6f5d0",
+    //     "#fde0ef",
+    //     "#e9a3c9",
+    //     "#c51b7d"
+    // ];
+
+    // loop through and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+      div.innerHTML += [ 
+        "depth",
+        '<i style="background:' +
+        getcolor(grades[i] + 1) +
+        '"></i> ' +
+        grades[i] +
+        (grades[i + 1] ? "&ndash;" + grades[i + 1] + " km"+ "<br>" : "+"+" km")];
+    }
+
+    return div;
+  };
+
+  legend.addTo(myMap);
 });
