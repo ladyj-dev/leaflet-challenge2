@@ -5,11 +5,7 @@ https://ladyj-dev.github.io/leaflet-challenge2/
 
 ## Overview
 
-<<<<<<< HEAD
 ![Images/earthquake_overview](Images/earthquake_overview.png)
-=======
-![immages/earthquake_overview](images/earthquake_overview.png)
->>>>>>> e437dc02952fcab537657db75e57b07cbe80cb10
 
 Welcome to the United States Geological Survey, or USGS for short! The USGS is responsible for providing scientific data about natural hazards, the health of our ecosystems and environment; and the impacts of climate and land-use change. Their scientists develop new methods and tools to supply timely, relevant, and useful information about the Earth and its processes. As a new hire, you will be helping them out with an exciting new project!
 
@@ -33,7 +29,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 
 Your first task is to visualize an earthquake data set.
-
+![images/aricageojson_data](images/aricageojson_data.png)
 1. **Get your data set**
 
 
@@ -53,7 +49,7 @@ Your first task is to visualize an earthquake data set.
 
    * Create a legend that will provide context for your map data.
 
-   * Your visualization should look something like the map below.
+   * Your visualization should look something like the map above.
 
 ### Assessment
 
