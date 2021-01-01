@@ -25,8 +25,8 @@ var darkmap = L.tileLayer(
 
 // create a generic map where id="mapid"
 var myMap = L.map("mapid", {
-  center: [37.09, -95.71],
-  zoom: 5,
+  center: [37.7, 14],
+  zoom: 3,
 });
 
 // add streetmap tile layer to the map
@@ -38,17 +38,34 @@ var tectonic = L.layerGroup();
 
 // create an object to hold our base layers
 var basemaps = {
-    "Street Map": streetmap,
-    "Dark Map": darkmap
+  "Street Map": streetmap,
+  "Dark Map": darkmap,
 };
 
 // create an object to hold the layers for each dataset
 var overlay = {
-    "Tectonic Plates": tectonic,
-    Earthquakes: earthquakes
+  "Tectonic Plates": tectonic,
+  Earthquakes: earthquakes,
 };
 
 // add a control layer (so you can choose what was built)
-L.control.layers(basemaps, overlay, {
-    collapsed:false
-}).addTo(myMap);
+L.control
+  .layers(basemaps, overlay, {
+    collapsed: false,
+  })
+  .addTo(myMap);
+
+// grab tectonic plates geojson data from webpage https://github.com/fraxen/tectonicplates/blob/master/GeoJSON/PB2002_plates.json
+var tectonicUrl =
+  "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json";
+d3.json(tectonicUrl, function (plates) {
+  // add data and style info to the tectonic plates layer
+  L.geoJSON(plates, {
+    color: "pink",
+    weight: 5,
+  })
+    //   add to the tectonic plate layer(chaining)
+    .addTo(tectonic);
+  //   add tectonic plate layer to myMap
+  tectonic.addTo(myMap);
+});
