@@ -69,3 +69,46 @@ d3.json(tectonicUrl, function (plates) {
   //   add tectonic plate layer to myMap
   tectonic.addTo(myMap);
 });
+
+// grab earthquake geojson https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week.geojson
+var earthquakeUrl =
+  "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week.geojson";
+d3.json(earthquakeUrl, function (data) {
+  // add data and style info to earthquake layer
+  // create circles to visualize each earthquake need radius(magnitude) and color(depth)
+  function styleinfo(features){
+    //   grabbing info needed to style our marker
+      return {
+        radius: getradius(features.properties.mag),
+        fillColor: getcolor(features.geometry.coordinates[2]),
+        stroke: true,
+        weight: .4,
+        fillOpacity: .7
+      }
+  }
+
+    
+  // create a function for the radius/magnitude
+  function getradius(magnitude) {
+    return magnitude * 3; //three is just a scaling factor to visualize difference in magnitude
+  }
+
+  // create a function for the color(depth)
+  function getcolor(depth) {
+    switch (true) {
+      case depth > 90:
+        return "blue";
+      case depth > 70:
+        return "";
+      case depth > 50:
+        return "";
+      case depth > 30:
+        return "";
+      case depth > 10:
+        return "";
+      default:
+        return "";
+    }
+  }
+  L.geoJSON(data, {});
+});
