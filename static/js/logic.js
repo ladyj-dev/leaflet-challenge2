@@ -136,19 +136,17 @@ d3.json(earthquakeUrl, function (data) {
 
     // create popup (using d3 bindpopup)
     onEachFeature: function (feature, layer) {
-        layer.bindPopup(
-           "Location: "
-           + feature.properties.place
-        //    add break tag to clean up popup
-           + "<br>Magnitude: "
-           + feature.properties.mag
-           + "<br>Depth(km): "
-           + feature.geometry.coordinates[2]
-            
-        );
-    }
-    
-    
+      layer.bindPopup(
+        "Location: " +
+          feature.properties.place +
+          //    add break tag to clean up popup
+          "<br>Magnitude: " +
+          feature.properties.mag +
+          "<br>Depth(km): " +
+          feature.geometry.coordinates[2]
+      );
+    },
+
     // add to layer created for earthquakes not to myMap
   }).addTo(earthquakes);
   earthquakes.addTo(myMap);
@@ -173,13 +171,17 @@ d3.json(earthquakeUrl, function (data) {
 
     // loop through and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
-      div.innerHTML += [ 
+      div.innerHTML += [
         "depth",
         '<i style="background:' +
-        getcolor(grades[i] + 1) +
-        '"></i> ' +
-        grades[i] +
-        (grades[i + 1] ? "&ndash;" + grades[i + 1] + " km"+ "<br>" : "+"+" km")];
+          getcolor(grades[i] + 1) +
+          '"></i> ' +
+          grades[i] +
+          // add km so user understands measurement and add space
+          (grades[i + 1]
+            ? "&ndash;" + grades[i + 1] + " km" + "<br>"
+            : "+" + " km"),
+      ];
     }
 
     return div;
@@ -187,9 +189,16 @@ d3.json(earthquakeUrl, function (data) {
 
   legend.addTo(myMap);
 
-//   generate a legend for size
-legend_size.onAdd = function() {
-    var div = L.DomUtil.create("div", "info legend"),
-
-}
+  //   generate a legend for size
+  var size_note = L.control({
+    position: "bottomleft",
+  });
+  size_note.onAdd = function () {
+    var div = L.DomUtil.create("div", "info legend");
+    // add to html
+    div.innerHTML +=
+      "Size is a function of the magnitude, smaller circles are magnitude 1";
+    return div;
+  };
+  size_note.addTo(myMap);
 });
