@@ -133,6 +133,22 @@ d3.json(earthquakeUrl, function (data) {
       return L.circleMarker(latlng);
     },
     style: styleinfo,
+
+    // create popup (using d3 bindpopup)
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup(
+           "Location: "
+           + feature.properties.place
+        //    add break tag to clean up popup
+           + "<br>Magnitude: "
+           + feature.properties.mag
+           + "<br>Depth(km): "
+           + feature.geometry.coordinates[2]
+            
+        );
+    }
+    
+    
     // add to layer created for earthquakes not to myMap
   }).addTo(earthquakes);
   earthquakes.addTo(myMap);
@@ -170,4 +186,10 @@ d3.json(earthquakeUrl, function (data) {
   };
 
   legend.addTo(myMap);
+
+//   generate a legend for size
+legend_size.onAdd = function() {
+    var div = L.DomUtil.create("div", "info legend"),
+
+}
 });
