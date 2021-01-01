@@ -32,3 +32,23 @@ var myMap = L.map("mapid", {
 // add streetmap tile layer to the map
 streetmap.addTo(myMap);
 
+// create layers for each dataset
+var earthquakes = L.layerGroup();
+var tectonic = L.layerGroup();
+
+// create an object to hold our base layers
+var basemaps = {
+    "Street Map": streetmap,
+    "Dark Map": darkmap
+};
+
+// create an object to hold the layers for each dataset
+var overlay = {
+    "Tectonic Plates": tectonic,
+    Earthquakes: earthquakes
+};
+
+// add a control layer (so you can choose what was built)
+L.control.layers(basemaps, overlay, {
+    collapsed:false
+}).addTo(myMap);
