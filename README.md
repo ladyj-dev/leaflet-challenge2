@@ -29,13 +29,13 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 
 Your first task is to visualize an earthquake data set.
-![images/aricageojson_data](images/aricageojson_data.png)
+![Images/aricageojson_data](Images/aricageojson_data.png)
 1. **Get your data set**
 
 
    The USGS provides earthquake data in a number of different formats, updated every 5 minutes. Visit the [USGS GeoJSON Feed](http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) page and pick a data set to visualize. When you click on a data set, for example 'All Earthquakes from the Past 7 Days', you will be given a JSON representation of that data. You will be using the URL of this JSON to pull in the data for our visualization.
 
-![images/aricageomap](images/aricageomap.png)
+![Images/aricageomap](Images/aricageomap.png)
    
 2. **Import & Visualize the Data**
 
@@ -63,5 +63,5 @@ Your final product will be assessed on the following metrics:
 
 * Ensure your repository has regular commits (i.e. 20+ commits) and a thorough README.md file
 
-![images/paris_calling](images/paris_calling.png)
+![Images/paris_calling](Images/paris_calling.png)
 
