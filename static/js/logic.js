@@ -12,6 +12,21 @@ var streetmap = L.tileLayer(
   }
 );
 
+
+var satellite = L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+    {
+      attribution:
+        "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+      tileSize: 512,
+      maxZoom: 18,
+      zoomOffset: -1,
+      id: "mapbox/satellite-v9",
+      accessToken: API_KEY,
+    }
+  );
+
+
 var darkmap = L.tileLayer(
   "https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
   {
@@ -30,7 +45,7 @@ var myMap = L.map("mapid", {
 });
 
 // add streetmap tile layer to the map
-streetmap.addTo(myMap);
+satellite.addTo(myMap);
 
 // create layers for each dataset
 var earthquakes = L.layerGroup();
@@ -40,6 +55,7 @@ var tectonic = L.layerGroup();
 var basemaps = {
   "Street Map": streetmap,
   "Dark Map": darkmap,
+  "Satellite Map": satellite,
 };
 
 // create an object to hold the layers for each dataset
@@ -76,39 +92,50 @@ var earthquakeUrl =
 d3.json(earthquakeUrl, function (data) {
   // add data and style info to earthquake layer
   // create circles to visualize each earthquake need radius(magnitude) and color(depth)
-  function styleinfo(features){
+  function styleinfo(features) {
     //   grabbing info needed to style our marker
-      return {
-        radius: getradius(features.properties.mag),
-        fillColor: getcolor(features.geometry.coordinates[2]),
-        stroke: true,
-        weight: .4,
-        fillOpacity: .7
-      }
+    return {
+      radius: getradius(features.properties.mag),
+      fillColor: getcolor(features.geometry.coordinates[2]),
+      stroke: true,
+      weight: 0.2,
+      fillOpacity: 0.5,
+      color: "black",
+      opacity: 1,
+    };
   }
 
-    
   // create a function for the radius/magnitude
   function getradius(magnitude) {
-    return magnitude * 3; //three is just a scaling factor to visualize difference in magnitude
+    return magnitude * 4; //three is just a scaling factor to visualize difference in magnitude
   }
 
   // create a function for the color(depth)
   function getcolor(depth) {
     switch (true) {
       case depth > 90:
-        return "blue";
+        return "#c51b7d";
       case depth > 70:
-        return "";
+        return "#e9a3c9";
       case depth > 50:
-        return "";
+        return "#fde0ef";
       case depth > 30:
-        return "";
+        return "#e6f5d0";
       case depth > 10:
-        return "";
+        return "#a1d76a";
       default:
-        return "";
+        return "#4d9221";
     }
   }
-  L.geoJSON(data, {});
+
+  //   add geojson layer to the map (above is styling but no content)
+  L.geoJSON(data, {
+    //   create a circlemarker
+    pointToLayer: function (feature, latlng) {
+      return L.circleMarker(latlng);
+    },
+    style: styleinfo,
+    // add to layer created for earthquakes not to myMap
+  }).addTo(earthquakes);
+  earthquakes.addTo(myMap);
 });
